@@ -12,7 +12,7 @@ uploaded dataset blog already
 #### 图游走模型：
 #####  DeepWalk
 
-analysis of model deepwalk written on zhihu:  
+Note of model deepwalk written here:   
 ①. How to run deepwalk model for graph embedding？
 >cd deepwalk
 >python main.py
