@@ -1,5 +1,5 @@
 ### 图模型实践
-图模型项目实践、论文复现、缓慢更新、欢迎start、交流学习。
+图模型项目实践、论文复现、缓慢更新、欢迎star、交流学习。
 
 #### 环境准备
 >pip install -r requirements.txt
@@ -12,7 +12,8 @@ uploaded dataset blog already
 #### 图游走模型：
 #####  DeepWalk
 
-Note of model deepwalk written here:   
+Note of model deepwalk written here:   [Graph-Learning：三言两语说清DeepWalk（论文解析、实战）](https://zhuanlan.zhihu.com/p/397710211)
+  
 ①. How to run deepwalk model for graph embedding？
 >cd deepwalk
 >python main.py
