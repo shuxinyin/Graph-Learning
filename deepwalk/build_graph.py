@@ -10,11 +10,8 @@ import random
 import time
 import dgl
 
-from utils import shuffle_walks
-
 
 def make_undirected(G):
-    # G.readonly(False)
     G.add_edges(G.edges()[1], G.edges()[0])
     return G
 
@@ -48,7 +45,7 @@ class Build_Graph(object):
     def get_edges_and_mapdict(self, file_path, self_loop=True, undirected=True):
         df_net = pd.read_csv(file_path, header=None, sep=" ", names=["src", "dst", "weight"])
 
-        nodes = list(set(df_net.src.to_list() + df_net.dst.to_list()))
+        nodes = list(set(sorted(df_net.src.to_list() + df_net.dst.to_list())))
         node2id = dict(zip(nodes, range(len(nodes))))
         id2node = dict(zip(range(len(nodes)), nodes))
 

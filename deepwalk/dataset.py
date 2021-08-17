@@ -5,21 +5,28 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 
 import dgl
-from build_graph import Build_Graph
 
 
 class Collate_Func(object):
-    def __init__(self, graph, config):
+    def __init__(self, graph, config, walk_mode="random_walk"):
+        self.walk_mode = config.walk_mode
+        self.p = config.p
+        self.q = config.q
         self.walk_length = config.walk_length
-        self.half_win_size = config.win_size//2
+        self.half_win_size = config.win_size // 2
         self.walk_num_per_node = config.walk_num_per_node
         self.graph = graph
         self.neg_num = config.neg_num
         self.nodes = graph.nodes().tolist()
 
-    def sample_walks(self, graph, seed_nodes, walk_length):
+    def sample_walks(self, graph, seed_nodes, walk_length, walk_mode):
         # DeepwalkSampler(self.G, self.seeds[i], self.walk_length)
-        walks = dgl.sampling.random_walk(graph, seed_nodes, length=walk_length)
+        if walk_mode == "random_walk":
+            walks = dgl.sampling.random_walk(graph, seed_nodes, length=walk_length)
+        elif walk_mode == "node2vec_random_walk":
+            walks = dgl.sampling.node2vec_random_walk(graph, seed_nodes, self.p, self.q, length=walk_length)
+        else:
+            raise ValueError('walk mode should be defined explicit.')
         return walks
 
     def skip_gram_gen_pairs(self, walk, half_win_size=2):
@@ -47,7 +54,7 @@ class Collate_Func(object):
 
         walks_list = list()
         for i in range(self.walk_num_per_node):
-            walks = self.sample_walks(self.graph, batch_nodes, self.walk_length)
+            walks = self.sample_walks(self.graph, batch_nodes, self.walk_length, self.walk_mode)
             walks_list += walks[0].tolist()
         for walk in walks_list:
             src, dst = self.skip_gram_gen_pairs(walk, self.half_win_size)
@@ -55,24 +62,13 @@ class Collate_Func(object):
             batch_dst += dst
 
         # shuffle pair
-        batch_tmp = list(zip(batch_src, batch_dst))
+        batch_tmp = list(set(zip(batch_src, batch_dst)))
         random.shuffle(batch_tmp)
         batch_src, batch_dst = zip(*batch_tmp)
 
         batch_src = torch.from_numpy(np.array(batch_src))
         batch_dst = torch.from_numpy(np.array(batch_dst))
         return batch_src, batch_dst
-
-
-def dgl_skip_gram_sample_pair(g, node, depth=[5, 1]):
-    for d in depth:
-        sub_graph = dgl.sampling.sample_neighbors(g, node, d)
-        neighbor_nodes = sub_graph.edges(order='eid')
-        node = neighbor_nodes.tolist()
-        print(neighbor_nodes)
-        # dgl_skip_gram_sample_pair(graph, node=[1], depth=[5, 1])
-        # sub_graph.edges(order='eid')
-        # sub_graph.edata[dgl.EID]
 
 
 class NodesDataset(Dataset):
@@ -99,8 +95,11 @@ class Word2VecWalkset(object):
     def forward(self):
         print()
 
+
 if __name__ == "__main__":
-    file_path = "D:/Learn_Project/graph_work/data/youtube/youtube-net.txt"
+    from build_graph import Build_Graph
+
+    file_path = "../data/blog/"
     GraphSet = Build_Graph(file_path, undirected=True)
     graph = GraphSet.graph
     print(GraphSet.id2node[0], GraphSet.id2node[1])
@@ -108,19 +107,21 @@ if __name__ == "__main__":
 
     nodes_dataset = NodesDataset(graph.nodes())
 
-    class ConfigClass():
+
+    class ConfigClass(object):
         def __init__(self, lr=0.05, gpu="0"):
-            self.lr = 0.05
+            self.lr = 0.005
             self.gpu = "0"
-            self.epochs = 200
-            self.embed_dim = 32
-            self.batch_size = 32
-            self.walk_num_per_node = 4
+            self.epochs = 32
+            self.embed_dim = 64
+            self.batch_size = 10
+            self.walk_num_per_node = 6
             self.walk_length = 12
-            self.win_size = 5
-            self.neg_num = 3
+            self.win_size = 6
+            self.neg_num = 5
             self.save_path = "../out/blog_deepwalk_ckpt"
             self.file_path = "../data/blog/"
+
 
     config = ConfigClass()
     pair_generate_func = Collate_Func(graph, config)
@@ -128,7 +129,11 @@ if __name__ == "__main__":
     pair_loader = DataLoader(nodes_dataset, batch_size=1, shuffle=True, num_workers=4,
                              collate_fn=pair_generate_func)
 
+    pair = set()
     for i, (batch_src, batch_dst) in enumerate(pair_loader):
-        print(batch_src.shape, batch_src)
-        print(batch_dst.shape, batch_dst)
-
+        print(batch_src.shape)
+        print(batch_dst.shape)
+        for i, j in zip(batch_src.tolist(), batch_dst.tolist()):
+            pair.add((i, j))
+        print(len(pair))
+        break

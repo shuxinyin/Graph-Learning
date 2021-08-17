@@ -30,6 +30,27 @@ def load_config(config_file):
     return AttrDict(config)
 
 
+def skip_gram_gen_pairs(walk, half_win_size=2):
+    src, dst = list(), list()
+
+    l = len(walk)
+    # rnd = np.random.randint(1,  half_win_size+1, dtype=np.int64, size=l)
+    for i in range(l):
+        real_win_size = half_win_size
+        left = i - real_win_size
+        if left < 0:
+            left = 0
+        right = i + real_win_size
+        if right >= l:
+            right = l - 1
+        for j in range(left, right + 1):
+            if walk[i] == walk[j]:
+                continue
+            src.append(walk[i])
+            dst.append(walk[j])
+    return src, dst
+
+
 if __name__ == "__main__":
     import argparse
 

@@ -25,12 +25,6 @@ class SkipGramModel(nn.Module):
         embed_neg = self.embed_nodes(neg)  # (B, neg_num, d)
         # print(embed_src.shape, embed_pos.shape, embed_neg.shape)
 
-        # pos_socre = torch.sum(torch.matmul(embed_src, embed_pos.transpose(0, 1)), 1)
-        # pos_socre = -F.logsigmoid(pos_socre)
-        #
-        # neg_socre = torch.sum(torch.matmul(embed_src, embed_neg.transpose(1, 2)), (1, 2))
-        # neg_socre = -F.logsigmoid(-neg_socre)
-
         pos_logits = torch.matmul(embed_src, embed_pos.transpose(0, 1))
         ones_label = torch.ones_like(pos_logits)
         # print(pos_logits.shape, ones_label.shape)
@@ -43,9 +37,6 @@ class SkipGramModel(nn.Module):
 
         loss = (pos_loss + neg_loss) / 2
         return loss
-
-
-
 
 
 def skip_gram_model_test():
@@ -64,8 +55,6 @@ def skip_gram_model_test():
     print(src.shape, dst.shape, neg.shape)
 
     print(model(src, dst, neg))
-
-
 
 
 if __name__ == "__main__":
