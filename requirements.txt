@@ -1,4 +1,4 @@
-torch==1.5.1
+torch==1.8.2
 dgl==0.5.3
 tqdm==4.61.0
 scikit-learn==0.24.1
