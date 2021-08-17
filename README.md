@@ -10,10 +10,11 @@
 uploaded dataset blog already
 
 #### 3. 图游走模型：
-#####  3.1 DeepWalk
+Note of model deepwalk written here:   
+1. [游走图模型--同构图DeepWalk解析](https://zhuanlan.zhihu.com/p/397710211)
+2. [游走图模型-聊聊Node2Vec](https://zhuanlan.zhihu.com/p/400849086)
 
-Note of model deepwalk written here:   [Graph-Learning：三言两语说清DeepWalk（论文解析、实战）](https://zhuanlan.zhihu.com/p/397710211)
-  
+#####  3.1 DeepWalk
 ①. How to run deepwalk model for graph embedding？
 >cd deepwalk
 >python main.py
@@ -23,4 +24,9 @@ Note of model deepwalk written here:   [Graph-Learning：三言两语说清DeepW
 
 
 #### Node2Vec
-waiting for update..
+①. How to run Node2Vec model 
+>cd node2vec
+>python main.py
+
+②. node classification(should changed the checkpoint of node2vec in node_classification.py)
+>python node_classification.py
