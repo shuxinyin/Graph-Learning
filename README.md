@@ -27,7 +27,7 @@ Notes of model written here:
 ②. node classification task
 >python node_classification.py
 
-####$ Node2Vec
+#### Node2Vec
 ①. How to run Node2Vec model 
 >cd node2vec
 >python main.py
