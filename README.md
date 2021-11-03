@@ -41,3 +41,10 @@ Notes of model written here:
 
 Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
 Test accuracy ~0.806 (0.793-0.819) ([paper](https://arxiv.org/abs/1609.02907): 0.815).
+
+##### GraphSAGE
+①. How to run GCN model 
+>python train.py
+
+Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
+Test accuracy ~0.781(0.762-0.801)  ([paper](https://arxiv.org/abs/1609.02907): 0.815).
