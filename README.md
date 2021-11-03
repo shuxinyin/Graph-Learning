@@ -16,7 +16,7 @@ Notes of model written here:
 2. [游走图模型-聊聊Node2Vec](https://zhuanlan.zhihu.com/p/400849086)
 3. [图卷积：从GCN到GAT、GraphSAGE](https://zhuanlan.zhihu.com/p/404826711)
 4. [怎么搭一个GCN？只需这四步](https://zhuanlan.zhihu.com/p/422380707)
-
+5. [怎么搭好一个GraphSAGE？按这三步走](https://zhuanlan.zhihu.com/p/429147607)
 
 #### How to run
 ##### DeepWalk
@@ -43,7 +43,7 @@ Cora dataset node classification(cora dataset will be download in ~/.dgl/ automa
 Test accuracy ~0.806 (0.793-0.819) ([paper](https://arxiv.org/abs/1609.02907): 0.815).
 
 ##### GraphSAGE
-①. How to run GCN model 
+①. How to run GraphSAGE model 
 >python train.py
 
 Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
