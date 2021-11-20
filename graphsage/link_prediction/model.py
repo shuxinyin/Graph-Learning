@@ -13,6 +13,7 @@ class WeightedSAGEConv(nn.Module):
         super().__init__()
 
         self.act = act
+        self.dropout = nn.Dropout(dropout)
         self.Q = nn.Linear(input_dims, output_dims)
         self.W = nn.Linear(input_dims + output_dims, output_dims)
         if bias:
@@ -51,7 +52,6 @@ class WeightedSAGEConv(nn.Module):
                 z_norm = torch.where(z_norm == 0, torch.tensor(1.).to(z_norm), z_norm)
                 z = z / z_norm
             else:
-                # a= self.Q(h_src)
                 g.srcdata['n'] = self.Q(h_src)
                 g.update_all(fn.copy_src('n', 'm'), fn.mean('m', 'neigh'))  # aggregation
                 n = g.dstdata['neigh']
@@ -74,12 +74,15 @@ class SAGENet(nn.Module):
         self.convs.append(WeightedSAGEConv(hidden_dims, output_dims,
                                            act, dropout))
         self.dropout = nn.Dropout(dropout)
-        self.act = act
+        # self.act = act
 
     def forward(self, blocks, h):
         for l, (layer, block) in enumerate(zip(self.convs, blocks)):
-            h_dst = h[:block.number_of_nodes('DST/' + block.ntypes[0])]
+            h_dst = h[:block.number_of_nodes('DST/' + block.ntypes[0])]  # 这只取dst点，从下往上aggregate，得到头结点
             h = layer(block, (h, h_dst))
             if l != len(self.convs) - 1:
                 h = self.dropout(h)
         return h
+
+
+
