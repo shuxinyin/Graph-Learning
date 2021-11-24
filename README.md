@@ -60,4 +60,4 @@ Test accuracy ~0.781(0.762-0.801)  ([paper](https://arxiv.org/abs/1609.02907): 0
 >cd graphsage/link_prediction
 >python train.py
 
-Test F1: ~0.630 (0.612~0.648) (cora数据集)
+Test F1: 0.630 (0.612~0.648) (cora数据集)
