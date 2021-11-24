@@ -17,7 +17,7 @@ Notes of model written here:
 3. [图卷积：从GCN到GAT、GraphSAGE](https://zhuanlan.zhihu.com/p/404826711)
 4. [怎么搭一个GCN？只需这四步](https://zhuanlan.zhihu.com/p/422380707)
 5. [怎么搭好一个GraphSAGE？按这三步走](https://zhuanlan.zhihu.com/p/429147607)
-6. Link-Prediction：搭一个无监督的GraphSAGE
+6. [Link-Prediction：搭一个无监督的GraphSAGE](https://zhuanlan.zhihu.com/p/435766657)
 #### How to run
 ##### DeepWalk
 ①. How to run deepwalk model for graph embedding？
@@ -54,7 +54,7 @@ Test accuracy ~0.806 (0.793-0.819) ([paper](https://arxiv.org/abs/1609.02907): 0
 Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
 Test accuracy ~0.781(0.762-0.801)  ([paper](https://arxiv.org/abs/1609.02907): 0.815).
 
-####### Link Prediction
+###### Link Prediction
 ![link_prediction](pictures/graphSAGE_link_pre.png)
 ①. How to run GraphSAGE model 
 >cd graphsage/link_prediction
