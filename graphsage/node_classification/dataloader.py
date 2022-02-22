@@ -63,7 +63,7 @@ class NodesGraphCollactor(object):
 
 
 def build_graph(args):
-    # load graph data
+    # load graph news
     if args.dataset == 'aifb':
         dataset = AIFBDataset()
     elif args.dataset == 'mutag':

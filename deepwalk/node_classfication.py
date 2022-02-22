@@ -81,7 +81,7 @@ def evaluate(test_nodes_loader, model):
 
         label = torch.max(batch_labels.data, 1)[1].cpu().numpy()
         pred = torch.max(probs.data, 1)[1].cpu().numpy()
-        # predic = torch.max(probs.data, 1)[1].cpu().numpy()
+        # predic = torch.max(probs.news, 1)[1].cpu().numpy()
         print(pred.size, label.size)
 
         labels_all = np.append(labels_all, label)

@@ -80,7 +80,7 @@ class Build_Graph(object):
 
 if __name__ == "__main__":
     # net, node2id, id2node, sm = ReadTxtNet(file_path="youtube", undirected=True)
-    file_path = "D:/Learn_Project/graph_work/data/blog/"
+    file_path = "D:/Learn_Project/graph_work/news/blog/"
     GraphSet = Build_Graph(file_path, walk_length=5, self_loop=True, undirected=True)
 
     # Walk_Sampler = DeepwalkSampler(G, seeds, walk_length)
