@@ -1,12 +1,12 @@
 ### 图模型实践
-图模型项目实践、论文复现、持续更新、欢迎star、交流学习。
+图模型项目（GCN、GAT、GraphSAGE、deepwalk、node2vec）细节实践、论文复现、持续更新、欢迎star、交流学习。
 
 #### 1. 环境准备
-based on dgl and pytorch mainly
+based on [dgl](https://github.com/dmlc/dgl) and pytorch mainly
 >pip install -r requirements.txt
 
 #### 2. 数据
->download dataset，put it to ./data/  
+>download dataset，put it to ./data/
 
 uploaded dataset blog already
 
@@ -17,9 +17,9 @@ Notes of model written here:
 3. [图卷积：从GCN到GAT、GraphSAGE](https://zhuanlan.zhihu.com/p/404826711)
 4. [怎么搭一个GCN？只需这四步](https://zhuanlan.zhihu.com/p/422380707)
 5. [怎么搭好一个GraphSAGE？按这三步走](https://zhuanlan.zhihu.com/p/429147607)
-6. [Link-Prediction：搭一个无监督的GraphSAGE](https://zhuanlan.zhihu.com/p/429147607)
-#### 4. How to run
-##### 4.1 DeepWalk
+6. [Link-Prediction：搭一个无监督的GraphSAGE](https://zhuanlan.zhihu.com/p/435766657)
+#### How to run
+##### DeepWalk
 ①. How to run deepwalk model for graph embedding？
 >cd deepwalk  
 >python main.py
@@ -27,40 +27,43 @@ Notes of model written here:
 ②. node classification task
 >python node_classification.py
 
-#### 4.2 Node2Vec
+#### Node2Vec
 ①. How to run Node2Vec model 
 >cd node2vec  
 >python main.py
 
-②. node classification task(should chang the checkpoint of node2vec in node_classification.py)
->python node_classification.py  
+②. node classification task(should chang the checkpoint of node2vec in node_classification.py).
+>python node_classification.py
 
-##### 4.3 GCN
-<img src="pictures/GCN_AD2.png" width = "50%" height = "50%" alt="GCN_AD2" align=center />
-
+##### GCN
 ①. How to run GCN model 
->python train.py  
+>python train.py
 
-Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
+Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).    
 Test accuracy ~0.806 (0.793-0.819) ([paper](https://arxiv.org/abs/1609.02907): 0.815).
 
-##### 4.4 GraphSAGE
+##### GraphSAGE
 
-###### Node Classification  
-<img src="pictures/node_classification.png" width = "50%" height = "50%" alt="node_classification" align=center />
+###### Node Classification
 
 ①. How to run GraphSAGE model
->cd graphsage/node_classification    
+>cd graphsage/node_classification  
 >python train.py
 
 Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).  
 Test accuracy ~0.781(0.762-0.801)  ([paper](https://arxiv.org/abs/1609.02907): 0.815).
 
 ###### Link Prediction
-<img src="pictures/graphSAGE_link_pre.png" width = "50%" height = "50%" alt="graphSAGE_link_pre" align=center />
 
 ①. How to run GraphSAGE model 
 >cd graphsage/link_prediction  
 >python train.py
 
-Test F1: 0.630 (0.612~0.648) (cora数据集)
+Test F1: ~0.630 (0.612~0.648) (cora数据集)  
+
+##### GAT
+①. How to run GAT model 
+>python train.py
+
+Cora dataset node classification(cora dataset will be download in ~/.dgl/ automatically).    
+Test accuracy ~0.810 (0.792-0.820) ([paper](https://arxiv.org/pdf/1710.10903.pdf): 0.830).
